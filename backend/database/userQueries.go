@@ -1,5 +1,7 @@
 package database
 
+import "fmt"
+
 func GetUserById(id int) (*User, error) {
 	var u User
 
@@ -37,10 +39,16 @@ func CreateUser(u User) error {
 }
 
 func DeleteUserById(id int) error {
-	_, err := db.Exec("DELETE FROM User WHERE id = ?", id)
+	result, err := db.Exec("DELETE FROM User WHERE id = ?", id)
 	if err != nil {
 		return err
 	}
-
+	rowsAffected, err := result.RowsAffected()
+	if err != nil {
+		return err
+	}
+	if rowsAffected == 0 {
+		return fmt.Errorf("rowsAffected == 0")
+	}
 	return nil
 }
