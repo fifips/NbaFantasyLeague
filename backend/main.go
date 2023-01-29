@@ -1,9 +1,8 @@
 package main
 
 import (
-	"NbaFantasyLeague/api"
-	"NbaFantasyLeague/database"
-	"NbaFantasyLeague/nba_api"
+	"backend/api"
+	"backend/database"
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
 )
@@ -21,9 +20,7 @@ func main() {
 
 	api.RegisterRoutes(router)
 
-	go func() {
-		nba_api.UpdateDatabase()
-	}()
+	//nba_api.UpdateDatabase()
 
 	router.Run("localhost:8080")
 }

@@ -5,9 +5,7 @@ import (
 	db "backend/database"
 	"encoding/json"
 	"fmt"
-	"github.com/google/go-cmp/cmp"
 	"io"
-	"log"
 	"net/http"
 	"time"
 )
@@ -72,36 +70,15 @@ func GetSchedule() ([]db.Match, error) {
 }
 
 func UpdateSchedule() error {
-	currentSchedule, err := db.GetSchedule()
-	if err != nil {
-		return err
-	}
 	newSchedule, err := GetSchedule()
 	if err != nil {
 		return err
 	}
 	for _, newGame := range newSchedule {
-		alreadyExist := false
-		for _, scheduledGame := range currentSchedule {
-			if newGame.GameId == scheduledGame.GameId {
-				alreadyExist = true
-				if cmp.Equal(scheduledGame, newGame) {
-					break
-				}
-				log.Printf("Trying to update scheduled game %s: %s vs %s, at %s",
-					scheduledGame.GameId, scheduledGame.HomeTeamId, scheduledGame.AwayTeamId, scheduledGame.GameDate)
-				err := db.UpdateMatch(newGame)
-				if err != nil {
-					return err
-				}
-			}
-		}
-		if !alreadyExist {
-			err := db.CreateScheduledGame(newGame)
-			if err != nil {
-				return err
-			}
+		if err := db.CreateOrUpdateScheduledGame(newGame); err != nil {
+			return err
 		}
 	}
+
 	return nil
 }

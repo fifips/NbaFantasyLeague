@@ -21,6 +21,9 @@ const (
 	RefreshTokenExpiration = time.Hour * 24 * 7
 )
 
+// ActivationCodeExpiration is a constant for account activation code duration
+const ActivationCodeExpiration = time.Minute * 15
+
 // Constants for intervals' durations for updating database
 const (
 	UpdateScheduleInterval  = time.Hour * 12
@@ -35,3 +38,6 @@ const (
 	TeamInfoEndpoint     string = "https://api.sportradar.us/nba/trial/v7/%s/teams/%s/profile.json?api_key=%s"
 	StandingsEndpoint    string = "https://api.sportradar.us/nba/trial/v7/%s/seasons/%d/%s/standings.json?api_key=%s"
 )
+
+// Frontend urls
+const ActivationUrl string = "http://localhost:3000/user/activate?activation_code=%s"

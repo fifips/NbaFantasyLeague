@@ -59,14 +59,14 @@ func DeleteMatch(game Match) error {
 	return nil
 }
 
-func CreateScheduledGame(game Match) error {
-	_, err := db.Exec("INSERT INTO Schedule (game_id, game_date, home_team_id, home_score, away_team_id, away_score) VALUE (?, ?, ?, ?, ?, ?)",
-		game.GameId, game.GameDate.Format("2006-01-02 15:04:05"), game.HomeTeamId, game.HomeScore, game.AwayTeamId, game.AwayScore)
-	if err != nil {
-		return err
-	}
+func CreateOrUpdateScheduledGame(game Match) error {
+	_, err := db.Exec(`INSERT INTO Schedule 
+    						(game_id, game_date, home_team_id, home_score, away_team_id, away_score) 
+							VALUES (?, ?, ?, ?, ?, ?) ON DUPLICATE KEY UPDATE game_date = VALUES(game_date),
+							home_team_id = VALUES(home_team_id), home_score = VALUES(home_score),
+							away_team_id = VALUES(away_team_id), away_score = VALUES(away_score)`,
+		game.GameId, game.GameDate.Format("2006-01-02 15:04:05"), game.HomeTeamId, game.HomeScore, game.AwayTeamId,
+		game.AwayScore)
 
-	log.Printf("Added scheduled game %s: %s vs %s, at %s",
-		game.GameId, game.HomeTeamId, game.AwayTeamId, game.GameDate)
-	return nil
+	return err
 }
