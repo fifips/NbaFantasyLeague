@@ -89,6 +89,7 @@ func TestGetUserByEmail(t *testing.T) {
 				Id:       1,
 				Email:    "user1@example.com",
 				Password: []byte("password1"),
+				IsActive: false,
 			},
 			wantErr: false,
 		},
@@ -128,12 +129,13 @@ func TestGetUserById(t *testing.T) {
 		{
 			name: "Positive",
 			args: args{
-				id: 1,
+				id: 3,
 			},
 			want: &User{
-				Id:       1,
-				Email:    "user1@example.com",
-				Password: []byte("password1"),
+				Id:       3,
+				Email:    "user3@example.com",
+				Password: []byte("password3"),
+				IsActive: true,
 			},
 			wantErr: false,
 		},

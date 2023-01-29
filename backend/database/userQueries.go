@@ -6,7 +6,7 @@ func GetUserById(id int) (*User, error) {
 	var u User
 
 	row := db.QueryRow("SELECT * FROM User WHERE id = ?", id)
-	if err := row.Scan(&u.Id, &u.Email, &u.Password); err != nil {
+	if err := row.Scan(&u.Id, &u.Email, &u.Password, &u.IsActive); err != nil {
 		return nil, err
 	}
 
@@ -17,7 +17,7 @@ func GetUserByEmail(email string) (*User, error) {
 	var u User
 
 	row := db.QueryRow("SELECT * FROM User WHERE email = ?", email)
-	if err := row.Scan(&u.Id, &u.Email, &u.Password); err != nil {
+	if err := row.Scan(&u.Id, &u.Email, &u.Password, &u.IsActive); err != nil {
 		return nil, err
 	}
 

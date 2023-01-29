@@ -94,6 +94,7 @@ type User struct {
 	Id       int    `json:"id"`
 	Email    string `json:"email"`
 	Password []byte `json:"-"`
+	IsActive bool   `json:"is_active"`
 }
 
 //
@@ -117,4 +118,10 @@ type User struct {
 type Session struct {
 	Id     uuid.UUID `json:"id"`
 	UserId int       `json:"user_id"`
+}
+
+type ActivationCode struct {
+	Code    uuid.UUID `json:"code"`
+	UserId  int       `json:"user_id"`
+	Expires time.Time `json:"expires"`
 }

@@ -55,6 +55,7 @@ CREATE TABLE User (
                       id INT AUTO_INCREMENT,
                       email VARCHAR(255) NOT NULL UNIQUE,
                       password LONGTEXT NOT NULL,
+                      is_active TINYINT(1) DEFAULT 0,
 
                       PRIMARY KEY (id)
 );
@@ -65,4 +66,13 @@ CREATE TABLE Session (
 
                          PRIMARY KEY (user_id),
                          FOREIGN KEY (user_id) REFERENCES User(id) ON DELETE CASCADE
+);
+
+CREATE TABLE Activation_Code (
+                                 user_id INT,
+                                 code VARCHAR(36) NOT NULL,
+                                 expires datetime NOT NULL,
+
+                                 FOREIGN KEY (user_id) REFERENCES User(id) ON DELETE CASCADE,
+                                 PRIMARY KEY (user_id)
 );
