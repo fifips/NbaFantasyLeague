@@ -1,0 +1,14 @@
+div.user-profile{
+
+}
+
+div.logged-out-profile,
+div.logged-in-profile{
+    display: flex;
+    flex-direction: column;
+
+    height: 100%;
+
+    justify-content: center;
+    align-items: center;
+}

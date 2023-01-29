@@ -1,0 +1,84 @@
+div.schedule {
+    display: flex;
+    flex-direction: row;
+    flex-shrink: 0;
+    height: 84px;
+
+    /* Text */
+    color: #fdf8f8;
+    -webkit-text-stroke-width: .5px;
+    -webkit-text-stroke-color: black;
+    border-color: rgba(159, 11, 11, 0.73);
+    border-left-style: solid;
+    border-left-width: 2px;
+}
+
+div.empty-schedule {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+
+    /* Text */
+    font-size: 40px;
+    -webkit-text-stroke-width: .8px;
+    color: rgba(253, 248, 248, 0.65);
+}
+
+div.schedule-item:first-child {
+    border-left-width: 1px;
+    border-left-style: solid;
+}
+
+div.schedule-item {
+    display: grid;
+    grid-template-rows: 15px 63px 6px;
+    border-right-width: 1px;
+    border-right-style: solid;
+    width: 140px;
+}
+
+div.matchup {
+    display: grid;
+    grid-template-columns: 66% 34%;
+    grid-template-rows: 1fr 1fr;
+    align-items: center;
+    padding-top: 2px;
+}
+
+div.team {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+img.team-logo {
+    height: 26px;
+    padding-left: 7px;
+    margin-right: 6px;
+}
+
+div.team-name {
+    font-size: 17px;
+    font-weight: 600;
+}
+
+
+div.wins-loses,
+div.score {
+    font-size: 17px;
+    font-weight: 600;
+}
+
+div.match-date {
+    display: grid;
+    grid-template-columns: 66% 34%;
+    grid-template-rows: 1fr 1fr;
+
+    font-size: 12.5px;
+    padding-top: 3px;
+}
+
+div.match-date-day {
+    padding-right: 13px;
+}
