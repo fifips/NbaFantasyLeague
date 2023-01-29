@@ -1,8 +1,8 @@
 package api
 
 import (
-	"NbaFantasyLeague/common"
-	db "NbaFantasyLeague/database"
+	"backend/common"
+	db "backend/database"
 	"github.com/gin-gonic/gin"
 	"github.com/golang-jwt/jwt/v4"
 	"github.com/google/uuid"
@@ -139,33 +139,34 @@ func Authenticate(c *gin.Context) {
 	if err != nil && err == (http.ErrNoCookie) {
 		refreshToken, err := c.Cookie("refresh_token")
 		if err != nil {
-			c.JSON(http.StatusUnauthorized, gin.H{"message1": err.Error()})
+			c.AbortWithStatusJSON(http.StatusUnauthorized, gin.H{"message1": err.Error()})
 			return
 		}
 
 		user, err := getUserFromRefreshToken(refreshToken)
 		if err != nil {
-			c.JSON(http.StatusInternalServerError, gin.H{"message2": err.Error()})
+			c.AbortWithStatusJSON(http.StatusInternalServerError, gin.H{"message2": err.Error()})
 			return
 		}
 
 		if err := createTokenPair(c, *user); err != nil {
-			c.JSON(http.StatusInternalServerError, gin.H{"message3": err.Error()})
+			c.AbortWithStatusJSON(http.StatusInternalServerError, gin.H{"message3": err.Error()})
 			return
 		}
 
-		c.JSON(http.StatusOK, user)
+		c.AbortWithStatusJSON(http.StatusOK, user)
 		return
 	} else if err != nil {
-		c.JSON(http.StatusInternalServerError, gin.H{"message4": err.Error()})
+		c.AbortWithStatusJSON(http.StatusInternalServerError, gin.H{"message4": err.Error()})
 		return
 	}
 
 	user, err := getUserFromAccessToken(accessToken)
 	if err != nil {
-		c.JSON(http.StatusUnauthorized, gin.H{"message5": err.Error()})
+		c.AbortWithStatusJSON(http.StatusUnauthorized, gin.H{"message5": err.Error()})
 		return
 	}
 
 	c.Set("user", *user)
+	c.Next()
 }

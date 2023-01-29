@@ -1,8 +1,8 @@
 package nba_api
 
 import (
-	"NbaFantasyLeague/common"
-	"NbaFantasyLeague/database"
+	"backend/common"
+	db "backend/database"
 	"encoding/json"
 	"fmt"
 	"github.com/google/go-cmp/cmp"
@@ -12,7 +12,7 @@ import (
 	"time"
 )
 
-func parseGameInfo(gameInfo map[string]interface{}, newGame *database.Match) error {
+func parseGameInfo(gameInfo map[string]interface{}, newGame *db.Match) error {
 	newGame.GameId = gameInfo["id"].(string)
 	gameDate, err := time.Parse("2006-01-02T15:04:05Z", gameInfo["scheduled"].(string))
 	if err != nil {
@@ -39,7 +39,7 @@ func parseGameInfo(gameInfo map[string]interface{}, newGame *database.Match) err
 	return nil
 }
 
-func GetSchedule() ([]database.Match, error) {
+func GetSchedule() ([]db.Match, error) {
 	url := fmt.Sprintf(common.ScheduleEndpoint, config.locale, config.year, config.seasonType, config.nbaKey)
 	resp, err := http.Get(url)
 	if err != nil {
@@ -57,9 +57,9 @@ func GetSchedule() ([]database.Match, error) {
 		return nil, err
 	}
 
-	var games []database.Match
+	var games []db.Match
 	for _, gameInfo := range respJson["games"].([]any) {
-		var newGame database.Match
+		var newGame db.Match
 
 		err := parseGameInfo(gameInfo.(map[string]any), &newGame)
 		if err != nil {
@@ -72,7 +72,7 @@ func GetSchedule() ([]database.Match, error) {
 }
 
 func UpdateSchedule() error {
-	currentSchedule, err := database.GetSchedule()
+	currentSchedule, err := db.GetSchedule()
 	if err != nil {
 		return err
 	}
@@ -90,14 +90,14 @@ func UpdateSchedule() error {
 				}
 				log.Printf("Trying to update scheduled game %s: %s vs %s, at %s",
 					scheduledGame.GameId, scheduledGame.HomeTeamId, scheduledGame.AwayTeamId, scheduledGame.GameDate)
-				err := database.UpdateMatch(newGame)
+				err := db.UpdateMatch(newGame)
 				if err != nil {
 					return err
 				}
 			}
 		}
 		if !alreadyExist {
-			err := database.CreateScheduledGame(newGame)
+			err := db.CreateScheduledGame(newGame)
 			if err != nil {
 				return err
 			}

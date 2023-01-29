@@ -6,7 +6,7 @@ import "time"
 
 // Constants describing all project paths
 const (
-	ProjectPath = `E:\NbaFantasyLeague\backend`
+	ProjectPath = `E:\PracaDyplomowa\NbaFantasyLeague\backend`
 	// Database paths
 
 	SqlScriptsPath                      string = ProjectPath + `\database\sqlScripts`
