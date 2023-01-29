@@ -7,7 +7,7 @@ import (
 
 func TestCreateUser(t *testing.T) {
 	type args struct {
-		u User
+		u *User
 	}
 	tests := []struct {
 		name    string
@@ -17,7 +17,7 @@ func TestCreateUser(t *testing.T) {
 		{
 			name: "Positive",
 			args: args{
-				u: User{
+				u: &User{
 					Email:    "user5@example.com",
 					Password: []byte("password5"),
 				},
@@ -27,7 +27,7 @@ func TestCreateUser(t *testing.T) {
 		{
 			name: "Negative",
 			args: args{
-				u: User{
+				u: &User{
 					Email:    "user1@example.com",
 					Password: []byte("password1"),
 				},

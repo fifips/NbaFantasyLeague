@@ -1,7 +1,7 @@
 package api
 
 import (
-	db "NbaFantasyLeague/database"
+	db "backend/database"
 	"github.com/gin-gonic/gin"
 	"net/http"
 )

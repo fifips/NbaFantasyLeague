@@ -5,53 +5,6 @@ import (
 	"testing"
 )
 
-func TestCreateTeam(t *testing.T) {
-	type args struct {
-		team Team
-	}
-	tests := []struct {
-		name    string
-		args    args
-		wantErr bool
-	}{
-		{
-			name: "Positive",
-			args: args{
-				team: Team{
-					Id:        "4",
-					FullName:  "Oklahoma City Thunder",
-					Acronym:   "OKC",
-					Wins:      5,
-					Losses:    6,
-					PlayerIds: nil,
-				},
-			},
-			wantErr: false,
-		},
-		{
-			name: "Negative",
-			args: args{
-				team: Team{
-					Id:        "1",
-					FullName:  "Golden State Warriors",
-					Acronym:   "GSW",
-					Wins:      72,
-					Losses:    10,
-					PlayerIds: nil,
-				},
-			},
-			wantErr: true,
-		},
-	}
-	for _, tt := range tests {
-		t.Run(tt.name, func(t *testing.T) {
-			if err := CreateTeam(tt.args.team); (err != nil) != tt.wantErr {
-				t.Errorf("CreateTeam() error = %v, wantErr %v", err, tt.wantErr)
-			}
-		})
-	}
-}
-
 func TestDeleteTeam(t *testing.T) {
 	type args struct {
 		id string
@@ -152,7 +105,7 @@ func TestGetTeamById(t *testing.T) {
 	}
 }
 
-func TestUpdateTeam(t *testing.T) {
+func TestCreateOrUpdateTeam(t *testing.T) {
 	type args struct {
 		team Team
 	}
@@ -162,7 +115,21 @@ func TestUpdateTeam(t *testing.T) {
 		wantErr bool
 	}{
 		{
-			name: "Positive",
+			name: "Positive: Create",
+			args: args{
+				team: Team{
+					Id:        "4",
+					FullName:  "Oklahoma City Thunder",
+					Acronym:   "OKC",
+					Wins:      5,
+					Losses:    6,
+					PlayerIds: nil,
+				},
+			},
+			wantErr: false,
+		},
+		{
+			name: "Positive: Update",
 			args: args{
 				team: Team{
 					Id:        "3",
@@ -178,8 +145,8 @@ func TestUpdateTeam(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			if err := UpdateTeam(tt.args.team); (err != nil) != tt.wantErr {
-				t.Errorf("UpdateTeam() error = %v, wantErr %v", err, tt.wantErr)
+			if err := CreateOrUpdateTeam(tt.args.team); (err != nil) != tt.wantErr {
+				t.Errorf("CreateOrUpdateTeam() error = %v, wantErr %v", err, tt.wantErr)
 			}
 		})
 	}

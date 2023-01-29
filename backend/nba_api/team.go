@@ -1,15 +1,15 @@
 package nba_api
 
 import (
-	"NbaFantasyLeague/common"
-	"NbaFantasyLeague/database"
+	"backend/common"
+	db "backend/database"
 	"encoding/json"
 	"fmt"
 	"io"
 	"net/http"
 )
 
-func parseTeamInfo(teamInfo map[string]any, team *database.Team) error {
+func parseTeamInfo(teamInfo map[string]any, team *db.Team) error {
 	team.Id = teamInfo["id"].(string)
 	team.FullName = fmt.Sprintf("%s %s", teamInfo["market"].(string), teamInfo["name"].(string))
 	team.Acronym = teamInfo["alias"].(string)
@@ -21,8 +21,8 @@ func parseTeamInfo(teamInfo map[string]any, team *database.Team) error {
 	return nil
 }
 
-func GetTeamInfo(teamId string) (database.Team, error) {
-	var team database.Team
+func GetTeamInfo(teamId string) (db.Team, error) {
+	var team db.Team
 
 	url := fmt.Sprintf(common.TeamInfoEndpoint, config.locale, teamId, config.nbaKey)
 	resp, err := http.Get(url)
@@ -49,11 +49,11 @@ func GetTeamInfo(teamId string) (database.Team, error) {
 	return team, nil
 }
 
-func parseStandings(leagueInfo map[string]any, teams *[]database.Team) {
+func parseStandings(leagueInfo map[string]any, teams *[]db.Team) {
 	for _, conference := range leagueInfo["conferences"].([]any) {
 		for _, division := range conference.(map[string]any)["divisions"].([]any) {
 			for _, teamInfo := range division.(map[string]any)["teams"].([]any) {
-				var team database.Team
+				var team db.Team
 
 				teamInfoConverted := teamInfo.(map[string]any)
 
@@ -69,8 +69,8 @@ func parseStandings(leagueInfo map[string]any, teams *[]database.Team) {
 
 }
 
-func GetStandings() ([]database.Team, error) {
-	var teams []database.Team
+func GetStandings() ([]db.Team, error) {
+	var teams []db.Team
 
 	client := &http.Client{}
 	url := fmt.Sprintf(common.StandingsEndpoint, config.locale, config.year, config.seasonType, config.nbaKey)
@@ -106,7 +106,7 @@ func UpdateStandings() error {
 		return err
 	}
 	for _, updatedTeam := range updatedStandings {
-		err = database.UpdateTeam(updatedTeam)
+		err = db.CreateOrUpdateTeam(updatedTeam)
 		if err != nil {
 			return err
 		}

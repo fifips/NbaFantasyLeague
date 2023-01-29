@@ -5,7 +5,7 @@ func GetActivationCodeByUserId(userId int) (ActivationCode, error) {
 	var aC ActivationCode
 
 	row := db.QueryRow("SELECT * FROM activation_code WHERE user_id = ?", userId)
-	if err := row.Scan(&aC.UserId, &aC.Code, &aC.Expires); err != nil {
+	if err := row.Scan(&aC.Code, &aC.UserId, &aC.Expires); err != nil {
 		return aC, err
 	}
 

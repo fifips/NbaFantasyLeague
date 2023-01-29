@@ -13,6 +13,10 @@ func RegisterRoutes(router *gin.Engine) {
 	userRoutes := router.Group("/user")
 	userRoutes.Use(Authenticate)
 
-	userRoutes.GET("/logout", logout)
+	userRoutes.POST("/activate", activateUser)
 	userRoutes.GET("/is_logged_in", isLoggedIn)
+
+	userRoutes.Use(IsActiveUser)
+
+	userRoutes.GET("/logout", logout)
 }

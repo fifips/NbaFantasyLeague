@@ -24,7 +24,12 @@ func GetUserByEmail(email string) (*User, error) {
 	return &u, nil
 }
 
-func CreateUser(u User) error {
+func ActivateUserById(userId int) error {
+	_, err := db.Exec("UPDATE User SET is_active = ? WHERE id = ?", true, userId)
+	return err
+}
+
+func CreateUser(u *User) error {
 	result, err := db.Exec("INSERT INTO User (email, password) VALUES (?, ?)", u.Email, u.Password)
 	if err != nil {
 		return err
