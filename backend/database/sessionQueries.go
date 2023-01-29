@@ -24,6 +24,14 @@ func CreateOrUpdateSession(s Session) error {
 	return nil
 }
 
+func DeleteSessionById(id uuid.UUID) error {
+	_, err := db.Exec("DELETE FROM Session WHERE id = ?", id)
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
 func DeleteSessionByUserId(id int) error {
 	_, err := db.Exec("DELETE FROM Session WHERE user_id = ?", id)
 	if err != nil {

@@ -35,7 +35,6 @@ func UpdatePlayer(player Player) error {
 	return nil
 }
 
-// DeletePlayerById executes sql statement for deleting Player associated with given id.
 func DeletePlayerById(id string) error {
 	_, err := db.Exec("DELETE FROM player WHERE id = ?", id)
 	return err

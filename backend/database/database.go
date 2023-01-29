@@ -28,10 +28,9 @@ func init() {
 }
 
 func testInit() {
-	dbName := os.Getenv("MYSQL_DATABASE")
-	dbTestName := fmt.Sprintf("%s_test", dbName)
+	dbName := os.Getenv("MYSQL_TEST_DATABASE")
 	cfg.MultiStatements = true
-	cfg.DBName = dbTestName
+	cfg.DBName = dbName
 }
 
 func ConnectDB() {
@@ -55,4 +54,20 @@ func DisconnectDB() {
 		log.Fatal(closeErr)
 	}
 	log.Printf("Disconnected from %s database!\n", cfg.DBName)
+}
+
+// loadAndExecuteSqlScript given sql file's path
+// loads it's contents into memory as a string and executes them in database
+func loadAndExecuteSqlScript(scriptPath string) error {
+	setupStatements, err := os.ReadFile(scriptPath)
+	if err != nil {
+		return err
+	}
+
+	_, err = db.Exec(string(setupStatements))
+	if err != nil {
+		return err
+	}
+
+	return nil
 }
