@@ -1,8 +1,8 @@
 package nba_api
 
 import (
-	"NbaFantasyLeague/common"
-	"NbaFantasyLeague/database"
+	"backend/common"
+	db "backend/database"
 	"encoding/json"
 	"fmt"
 	"io"
@@ -34,7 +34,7 @@ func UpdateDatabase() {
 	}()
 }
 
-func parsePlayerPerformance(performanceInfo map[string]any, playerPerformance *database.PlayerPerformance) error {
+func parsePlayerPerformance(performanceInfo map[string]any, playerPerformance *db.PlayerPerformance) error {
 	playerPerformance.PlayerId = performanceInfo["id"].(string)
 
 	performanceStats := performanceInfo["statistics"].(map[string]any)
@@ -54,8 +54,8 @@ func parsePlayerPerformance(performanceInfo map[string]any, playerPerformance *d
 	return nil
 }
 
-func GetBoxScoreByGameId(gameId string) (database.GameBoxScore, error) {
-	var resultBoxScore database.GameBoxScore
+func GetBoxScoreByGameId(gameId string) (db.GameBoxScore, error) {
+	var resultBoxScore db.GameBoxScore
 
 	url := fmt.Sprintf(common.GameBoxScoreEndpoint, config.locale, gameId, config.nbaKey)
 	resp, err := http.Get(url)
@@ -78,7 +78,7 @@ func GetBoxScoreByGameId(gameId string) (database.GameBoxScore, error) {
 	awayTeamPlayerPerformances := awayTeamBoxScore["players"].([]map[string]any)
 
 	for _, performance := range awayTeamPlayerPerformances {
-		var newPlayerPerformance database.PlayerPerformance
+		var newPlayerPerformance db.PlayerPerformance
 		newPlayerPerformance.GameId = gameId
 
 		err := parsePlayerPerformance(performance, &newPlayerPerformance)
@@ -93,7 +93,7 @@ func GetBoxScoreByGameId(gameId string) (database.GameBoxScore, error) {
 	homeTeamPlayerPerformances := homeTeamBoxScore["players"].([]map[string]any)
 
 	for _, performance := range homeTeamPlayerPerformances {
-		var newPlayerPerformance database.PlayerPerformance
+		var newPlayerPerformance db.PlayerPerformance
 		newPlayerPerformance.GameId = gameId
 
 		err := parsePlayerPerformance(performance, &newPlayerPerformance)
