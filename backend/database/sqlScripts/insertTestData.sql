@@ -20,13 +20,18 @@ VALUES ('1', '1', '01:20:00', 30, 10, 5, 2, 2, 2, 2),
        ('1', '2', '01:30:00', 25, 5, 8, 3, 1, 0, 3),
        ('2', '3', '01:40:00', 20, 8, 6, 2, 1, 2, 2);
 
-INSERT INTO User (email, password)
-VALUES ('user1@example.com', 'password1'),
-       ('user2@example.com', 'password2'),
-       ('user3@example.com', 'password3'),
-       ('user4@example.com', 'password4');
+INSERT INTO User (email, password, is_active)
+VALUES ('user1@example.com', 'password1', 0),
+       ('user2@example.com', 'password2', 1),
+       ('user3@example.com', 'password3', 1),
+       ('user4@example.com', 'password4', 1);
 
 INSERT INTO Session (id, user_id)
 VALUES ('1ba7b810-9dad-11d1-80b4-00c04fd430c8', '1'),
        ('2ba7b810-9dad-11d1-80b4-00c04fd430c8', '2'),
        ('3ba7b810-9dad-11d1-80b4-00c04fd430c8', '3');
+
+INSERT INTO Activation_Code (code, user_id, expires)
+VALUES ('1ba7b810-9dad-11d1-80b4-00c04fd430c8', '1', '2022-01-01 12:00:00'),
+       ('2ba7b810-9dad-11d1-80b4-00c04fd430c8', '2', '2022-01-02 12:00:00'),
+       ('3ba7b810-9dad-11d1-80b4-00c04fd430c8', '3', '2022-01-03 12:00:00');
