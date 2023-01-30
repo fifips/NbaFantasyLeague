@@ -20,7 +20,7 @@ form.register {
     background-color: rgba(64, 64, 65, 0.9);
 }
 
-button {
+button.register {
     width: 160px;
     height: 25px;
     font-size: 15px;
@@ -34,6 +34,7 @@ input {
     height: 30px;
     font-size: 15px;
 
+    color: #c52020;
 
     border-color: black;
     border-style: solid;

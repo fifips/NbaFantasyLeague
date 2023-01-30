@@ -1,4 +1,4 @@
-button {
+button.common {
     font-size: 14px;
     font-weight: 500;
     color: #c52020;
@@ -14,4 +14,15 @@ button {
     border-width: 1px;
 
     margin: 3px;
+}
+
+.bouncing {
+    transform: scale(1.1);
+    animation: bounce 0.5s;
+}
+
+@keyframes bounce {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+    100% { transform: scale(1); }
 }

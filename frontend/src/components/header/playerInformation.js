@@ -1,15 +1,17 @@
 import '../../styles/header/playerInformation.css';
-import '../../styles/miscellaneous.css';
 import {useContext} from "react";
 import {AuthContext} from "../../contexts/authContext";
+import {Link} from "react-router-dom";
+import {registerUrl} from "../../const";
+import {BouncingButton} from "../common/bouncingButton";
 
 
 const LoggedInProfile = ({logout}) => {
     return (
         <div className="logged-in-profile">
-            <button className="misc" onClick={logout}>
-                {"Logout"}
-            </button>
+            <BouncingButton onClick={logout}>
+                Logout
+            </BouncingButton>
         </div>
     );
 }
@@ -17,12 +19,14 @@ const LoggedInProfile = ({logout}) => {
 const LoggedOutProfile = ({login}) => {
     return (
         <div className="logged-out-profile">
-            <button className="misc" onClick={login}>
-                {"Login"}
-            </button>
-            <button className="misc" onClick={login}>
-                {"Register"}
-            </button>
+            <BouncingButton onClick={login}>
+                Login
+            </BouncingButton>
+            <Link to="/register">
+                <BouncingButton>
+                    Register
+                </BouncingButton>
+            </Link>
         </div>
     );
 }

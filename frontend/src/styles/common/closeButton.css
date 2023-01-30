@@ -1,0 +1,21 @@
+button.close {
+    height: 10px;
+    width: 10px;
+    padding: 0;
+
+    border: none;
+    background-color: transparent;
+
+    opacity: 0.7;
+}
+
+button.close:hover {
+    opacity: 1;
+}
+
+button.close:before, .close:after {
+    position: absolute;
+    content: ' ';
+    width: 1px;
+    background-color: #000000;
+}

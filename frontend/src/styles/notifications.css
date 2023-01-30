@@ -1,0 +1,76 @@
+div.notification-list {
+    height: 33%;
+    width: 33%;
+    margin-right: 10px;
+
+    position: fixed;
+    bottom: 0;
+    right: 0;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+}
+
+div.notification {
+    position: relative;
+    overflow-y: auto;
+
+    height: 22%;
+    margin-bottom: 8px;
+
+    background-color: #cfe5d8;
+    border: 3px groove #931212;
+    border-radius: 7px;
+}
+
+p.notification {
+    margin: 3px 9px 3px 3px;
+    font-size: 18px;
+    text-align: left;
+}
+
+div.notification::-webkit-scrollbar {
+    display: none;
+}
+
+/*button.remove-notif {*/
+/*    position: absolute;*/
+/*    top: 3px;*/
+/*    right: 3px;*/
+/*    height: 14px;*/
+/*    width: 14px;*/
+/*    padding: 0;*/
+
+/*    border: none;*/
+/*    background-color: transparent;*/
+
+/*    opacity: 0.7;*/
+/*}*/
+
+/*button.remove-notif:hover {*/
+/*    opacity: 1;*/
+/*}*/
+
+
+/*button.remove-notif:before, .remove-notif:after {*/
+/*    content: ' ';*/
+
+/*    position: absolute;*/
+/*    height: 15px;*/
+/*    width: 1px;*/
+/*    top: 0;*/
+/*    right: 6px;*/
+
+/*    background-color: #000000;*/
+/*}*/
+
+
+/*button.remove-notif:before {*/
+/*    transform: rotate(45deg);*/
+/*}*/
+
+/*button.remove-notif:after {*/
+/*    transform: rotate(-45deg);*/
+/*}*/
+

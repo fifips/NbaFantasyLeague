@@ -1,5 +1,7 @@
 import '../styles/register.css';
 import {useState} from "react";
+import {BouncingButton} from "./common/bouncingButton";
+import {registerUser} from "../api/user_api";
 
 export const Register = () => {
     const [email, setEmail] = useState('');
@@ -27,8 +29,9 @@ export const Register = () => {
             alert("Passwords do not match");
             return;
         }
-        // If all validations passed, send data to backend
-        console.log(email, password, passwordConfirmation);
+
+        //handle result of registration
+        registerUser({email, password}).then()
     };
 
 
@@ -38,7 +41,7 @@ export const Register = () => {
                 <input type="email" value={email} placeholder="Email" onChange={e => setEmail(e.target.value)} />
                 <input type="password" value={password} placeholder="Password" onChange={e => setPassword(e.target.value)} />
                 <input type="password" value={passwordConfirmation} placeholder="Confirm Password" onChange={e => setPasswordConfirmation(e.target.value)} />
-                <button className="register" type="submit">Register</button>
+                <BouncingButton className="register" type="submit">Register</BouncingButton>
             </form>
         </div>
     );
