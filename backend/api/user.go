@@ -1,7 +1,7 @@
 package api
 
 import (
-	"backend/common"
+	. "backend/common"
 	db "backend/database"
 	"fmt"
 	"github.com/gin-gonic/gin"
@@ -64,7 +64,7 @@ func register(c *gin.Context) {
 	aC := db.ActivationCode{
 		Code:    code,
 		UserId:  newUser.Id,
-		Expires: time.Now().Add(common.ActivationCodeExpiration),
+		Expires: time.Now().Add(ActivationCodeExpiration),
 	}
 
 	if err := db.CreateOrUpdateActivationCode(aC); err != nil {
@@ -132,7 +132,7 @@ func isLoggedIn(c *gin.Context) {
 // with activation code(string) consisting of 4 random characters needed for activating user account
 // The code is valid for 15 minutes.
 func sendActivationEmail(recipient string, activationCode string) error {
-	activationLink := fmt.Sprintf(common.ActivationUrl, activationCode)
+	activationLink := fmt.Sprintf(ActivationUrl, activationCode)
 	subject := "Verify your account!"
 	msg := []byte(
 		fmt.Sprintf("To:%s\r\n", recipient) +
@@ -191,7 +191,7 @@ func activateUser(c *gin.Context) {
 	}
 
 	if user.IsActive {
-		c.JSON(http.StatusConflict, gin.H{"message": common.ErrorUserAccActive})
+		c.JSON(http.StatusConflict, gin.H{"message": CustomError{Message: "Account is already active."}.Error()})
 		return
 	}
 
@@ -220,5 +220,5 @@ func activateUser(c *gin.Context) {
 		return
 	}
 
-	c.JSON(http.StatusOK, gin.H{"message": common.SuccessAccountActivated})
+	c.JSON(http.StatusOK, gin.H{"message": nil})
 }

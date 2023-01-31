@@ -1,6 +1,10 @@
 package database
 
-import "fmt"
+import (
+	. "backend/common"
+	"fmt"
+	"github.com/go-sql-driver/mysql"
+)
 
 func GetUserById(id int) (*User, error) {
 	var u User
@@ -32,8 +36,14 @@ func ActivateUserById(userId int) error {
 func CreateUser(u *User) error {
 	result, err := db.Exec("INSERT INTO User (email, password) VALUES (?, ?)", u.Email, u.Password)
 	if err != nil {
-		return err
+		if err, ok := err.(*mysql.MySQLError); ok {
+			if err.Number == 1062 {
+				return CustomError{Message: "This email is already taken."}
+			}
+			return err
+		}
 	}
+
 	insertedId, err := result.LastInsertId()
 	if err != nil {
 		return err
