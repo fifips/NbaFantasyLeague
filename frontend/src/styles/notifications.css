@@ -16,18 +16,21 @@ div.notification {
     position: relative;
     overflow-y: auto;
 
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+
     height: 22%;
     margin-bottom: 8px;
 
     background-color: #cfe5d8;
-    border: 3px groove #931212;
+    border: 3px solid #931212;
     border-radius: 7px;
 }
 
 p.notification {
     margin: 3px 9px 3px 3px;
     font-size: 18px;
-    text-align: left;
 }
 
 div.notification::-webkit-scrollbar {

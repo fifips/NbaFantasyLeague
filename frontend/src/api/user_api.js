@@ -8,14 +8,7 @@ export const registerUser = async (user) => {
         method: 'POST',
         credentials: "include",
         body: JSON.stringify(user)})
-    const data = await res.json()
-    console.log(data)
-    switch (res.status){
-        case 201:
-            return true
-        default:
-            return false
-    }
+    return res
 }
 
 export const activateUser = async (activationCode) => {

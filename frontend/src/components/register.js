@@ -1,14 +1,16 @@
 import '../styles/register.css';
-import {useState} from "react";
+import {useContext, useState} from "react";
 import {BouncingButton} from "./common/bouncingButton";
 import {registerUser} from "../api/user_api";
+import {Navigate} from "react-router-dom";
+import {NotificationContext} from "../contexts/notifContext";
 
 export const Register = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [passwordConfirmation, setPasswordConfirmation] = useState('');
-
-    //TODO input validation
+    const [registrationCompleted, setRegistrationCompleted] = useState(false);
+    const { addNotification } = useContext(NotificationContext);
 
     const handleSubmit = event => {
         event.preventDefault();
@@ -31,10 +33,12 @@ export const Register = () => {
         }
 
         //handle result of registration
-        registerUser({email, password}).then()
+        registerUser({email, password}).then((r) => {
+            r.ok ? setRegistrationCompleted(true) : r.json().then(r => addNotification(r.message))
+        });
     };
 
-
+    if (registrationCompleted) return <Navigate to={"/"}/>
     return (
         <div className="register">
             <form className="register" onSubmit={handleSubmit}>

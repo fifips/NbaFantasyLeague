@@ -2,7 +2,6 @@ import '../../styles/header/playerInformation.css';
 import {useContext} from "react";
 import {AuthContext} from "../../contexts/authContext";
 import {Link} from "react-router-dom";
-import {registerUrl} from "../../const";
 import {BouncingButton} from "../common/bouncingButton";
 
 
