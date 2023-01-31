@@ -2,16 +2,16 @@ import {BouncingButton} from "./common/bouncingButton";
 import {useContext, useState} from "react";
 import "../styles/login.css"
 import {NotificationContext} from "../contexts/notifContext";
-import {loginUser} from "../api/user_api";
 import {Navigate} from "react-router-dom";
 import {AuthContext} from "../contexts/authContext";
+
 export const Login = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [loginCompleted, setLoginCompleted] = useState(false);
     const [rememberMe, setRememberMe] = useState(false);
     const { addNotification } = useContext(NotificationContext);
-    const { login } = useContext(AuthContext);
+    const { isLoggedIn, login } = useContext(AuthContext);
 
     const handleSubmit = event => {
         event.preventDefault();
@@ -29,12 +29,10 @@ export const Login = () => {
             return;
         }
 
-        loginUser({email, password, rememberMe}).then((r) => {
-            r.ok ? setLoginCompleted(true) && login() : r.json().then(r => addNotification(r.message))
-        });
+        login({email, password, rememberMe}) ? setLoginCompleted(true) : addNotification("Wrong e-mail or password")
     }
 
-    if (loginCompleted) return <Navigate to={"/"}/>
+    if (loginCompleted || isLoggedIn) return <Navigate to={"/"}/>
     return (
         <div className="login-page">
             <form className="login" onSubmit={handleSubmit}>
