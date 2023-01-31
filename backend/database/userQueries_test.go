@@ -77,7 +77,7 @@ func TestGetUserByEmail(t *testing.T) {
 	tests := []struct {
 		name    string
 		args    args
-		want    *User
+		want    User
 		wantErr bool
 	}{
 		{
@@ -85,7 +85,7 @@ func TestGetUserByEmail(t *testing.T) {
 			args: args{
 				email: "user1@example.com",
 			},
-			want: &User{
+			want: User{
 				Id:       1,
 				Email:    "user1@example.com",
 				Password: []byte("password1"),
@@ -98,7 +98,7 @@ func TestGetUserByEmail(t *testing.T) {
 			args: args{
 				email: "user6@example.com",
 			},
-			want:    nil,
+			want:    User{},
 			wantErr: true,
 		},
 	}

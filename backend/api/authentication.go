@@ -60,7 +60,8 @@ func createRefreshToken(user db.User) (string, error) {
 	return token, nil
 }
 
-func createTokenPair(c *gin.Context, user db.User) error {
+// createAndSetTokenPair creates user's access and refresh tokens and sets them in the response as cookies
+func createAndSetTokenPair(c *gin.Context, user db.User) error {
 	accessToken, err := createAccessToken(user)
 	if err != nil {
 		return err
@@ -149,7 +150,7 @@ func Authenticate(c *gin.Context) {
 			return
 		}
 
-		if err := createTokenPair(c, *user); err != nil {
+		if err := createAndSetTokenPair(c, *user); err != nil {
 			c.AbortWithStatusJSON(http.StatusInternalServerError, gin.H{"message3": err.Error()})
 			return
 		}

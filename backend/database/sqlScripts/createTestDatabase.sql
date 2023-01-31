@@ -69,10 +69,10 @@ CREATE TABLE Session (
 );
 
 CREATE TABLE Activation_Code (
-                                 user_id INT,
                                  code VARCHAR(36) NOT NULL,
+                                 user_id INT NOT NULL UNIQUE,
                                  expires datetime NOT NULL,
 
                                  FOREIGN KEY (user_id) REFERENCES User(id) ON DELETE CASCADE,
-                                 PRIMARY KEY (user_id)
+                                 PRIMARY KEY (code)
 );

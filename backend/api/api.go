@@ -14,9 +14,9 @@ func RegisterRoutes(router *gin.Engine) {
 	userRoutes.Use(Authenticate)
 
 	userRoutes.POST("/activate", activateUser)
-	userRoutes.GET("/is_logged_in", isLoggedIn)
+	userRoutes.GET("/logged_in", isLoggedIn)
+	userRoutes.GET("/logout", logout)
 
 	userRoutes.Use(IsActiveUser)
 
-	userRoutes.GET("/logout", logout)
 }

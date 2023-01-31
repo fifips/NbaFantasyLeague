@@ -1,8 +1,8 @@
 package common
 
-// apiMessages contains messages returned by the api
+// customError contains CustomError struct definition and it's methods
 
-// Error messages
+// CustomError allows to use errors with given message. Implements error interface
 type CustomError struct {
 	Message string
 }

@@ -17,15 +17,15 @@ func GetUserById(id int) (*User, error) {
 	return &u, nil
 }
 
-func GetUserByEmail(email string) (*User, error) {
+func GetUserByEmail(email string) (User, error) {
 	var u User
 
 	row := db.QueryRow("SELECT * FROM User WHERE email = ?", email)
 	if err := row.Scan(&u.Id, &u.Email, &u.Password, &u.IsActive); err != nil {
-		return nil, err
+		return u, err
 	}
 
-	return &u, nil
+	return u, nil
 }
 
 func ActivateUserById(userId int) error {

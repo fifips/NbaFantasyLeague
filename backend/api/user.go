@@ -50,11 +50,6 @@ func register(c *gin.Context) {
 		return
 	}
 
-	if err := createTokenPair(c, newUser); err != nil {
-		c.JSON(http.StatusInternalServerError, gin.H{"message": err.Error()})
-		return
-	}
-
 	code, err := uuid.NewRandom()
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"message": err.Error()})
@@ -98,9 +93,19 @@ func login(c *gin.Context) {
 		return
 	}
 
-	if err := createTokenPair(c, *user); err != nil {
-		c.JSON(http.StatusInternalServerError, gin.H{"message": err.Error()})
-		return
+	if createSession := c.Query("remember"); createSession == "true" {
+		if err := createAndSetTokenPair(c, user); err != nil {
+			c.JSON(http.StatusInternalServerError, gin.H{"message": err.Error()})
+			return
+		}
+	} else {
+		accessToken, err := createAccessToken(user)
+		if err != nil {
+			c.JSON(http.StatusInternalServerError, gin.H{"message": err.Error()})
+			return
+		}
+		c.SetCookie("access_token", accessToken, int(AccessTokenExpiration.Seconds()), "/", "localhost", true, true)
+
 	}
 
 	c.Status(http.StatusOK)
