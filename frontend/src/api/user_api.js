@@ -1,8 +1,9 @@
 // user_api contains functions to communicate with backend api regarding user
 
 // registerUser sends information about user that is trying to register to the backend
-import {activateApi, registerApi} from "../const";
+import {activateApi, loginApi, registerApi} from "../const";
 
+// registerUser sends POST request to backend api to provide credentials of a user trying to register
 export const registerUser = async (user) => {
     const res = await fetch(registerApi, {
         method: 'POST',
@@ -11,6 +12,7 @@ export const registerUser = async (user) => {
     return res
 }
 
+// activateUser sends POST request to backend api with account activation code to use it
 export const activateUser = async (activationCode) => {
     const res = await fetch(activateApi + activationCode, {
         method: 'POST',
@@ -20,20 +22,16 @@ export const activateUser = async (activationCode) => {
 
     return data.message
 }
-//
-// export const loginUser = async (user: { email: string, password: string }) => {
-//     const res = await fetch("http://localhost:8080/login", {
-//         method: 'POST',
-//         credentials: "include",
-//         body: JSON.stringify(user)})
-//     switch (res.status){
-//         case 200:
-//             return true
-//         default:
-//             showNotification({ message: 'Incorrect password', color: 'red' });
-//             return false
-//     }
-// }
+
+// loginUser sends POST request to the backend api in order to login given user
+export const loginUser = async ({email, password, rememberMe}) => {
+    //TODO add rememberMe handling (refresh token)
+    const res = await fetch(loginApi, {
+        method: 'POST',
+        credentials: "include",
+        body: JSON.stringify({email, password})})
+    return res
+}
 //
 // export const logoutUser = async () => {
 //     await fetch("http://localhost:8080/user/logout", {

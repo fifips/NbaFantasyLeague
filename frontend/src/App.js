@@ -6,6 +6,7 @@ import {Activate} from "./components/activate";
 import {Notification, Notifications} from "./components/common/notification";
 import {useContext} from "react";
 import {NotificationContext} from "./contexts/notifContext";
+import {Login} from "./components/login";
 
 const App = () => {
     return (
@@ -14,6 +15,7 @@ const App = () => {
         <BrowserRouter>
             <Header />
             <Routes>
+                <Route path="/login" element={<Login/>}/>
                 <Route path="/register" element={<Register/>}/>
                 <Route path="/user/activate" element={<Activate/>}/>
             </Routes>

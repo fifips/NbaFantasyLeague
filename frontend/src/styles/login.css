@@ -1,4 +1,4 @@
-div.register {
+div.login-page {
     display: flex;
     height: 100vh;
 
@@ -6,11 +6,12 @@ div.register {
     justify-content: center;
 }
 
-form.register {
+form.login {
+    width: 250px;
+
     display: flex;
     flex-direction: column;
 
-    justify-items: center;
     align-items: center;
 
     border-style: solid;
@@ -20,13 +21,13 @@ form.register {
     background-color: rgba(64, 64, 65, 0.9);
 }
 
-button.register {
+button.login {
     width: 160px;
     height: 25px;
     font-size: 15px;
 }
 
-form.register input {
+form.login input {
     margin-bottom: 5px;
     background-color: rgba(28, 27, 27, 0.7);
 
@@ -39,4 +40,16 @@ form.register input {
     border-color: black;
     border-style: solid;
     border-radius: 6px;
+}
+
+form.login input.remember-me {
+    width: 9px;
+    height: 9px;
+
+    margin: 0 3px 0 0;
+}
+
+label.remember-me {
+    font-size: 13px;
+    margin-bottom: 2px;
 }

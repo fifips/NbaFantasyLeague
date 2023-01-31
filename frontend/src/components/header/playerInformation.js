@@ -5,7 +5,9 @@ import {Link} from "react-router-dom";
 import {BouncingButton} from "../common/bouncingButton";
 
 
-const LoggedInProfile = ({logout}) => {
+const LoggedInProfile = () => {
+    const {logout} = useContext(AuthContext);
+
     return (
         <div className="logged-in-profile">
             <BouncingButton onClick={logout}>
@@ -15,12 +17,14 @@ const LoggedInProfile = ({logout}) => {
     );
 }
 
-const LoggedOutProfile = ({login}) => {
+const LoggedOutProfile = () => {
     return (
         <div className="logged-out-profile">
-            <BouncingButton onClick={login}>
-                Login
-            </BouncingButton>
+            <Link to="/login">
+                <BouncingButton>
+                    Login
+                </BouncingButton>
+            </Link>
             <Link to="/register">
                 <BouncingButton>
                     Register
@@ -31,15 +35,11 @@ const LoggedOutProfile = ({login}) => {
 }
 
 export const UserInformation = () => {
-    const {isLoggedIn, login, logout} = useContext(AuthContext);
+    const {isLoggedIn} = useContext(AuthContext);
 
     return (
         <div className="user-profile">
-            {
-                isLoggedIn
-                    ? <LoggedInProfile logout={logout}/>
-                    : <LoggedOutProfile login={login}/>
-            }
+            { isLoggedIn ? <LoggedInProfile /> : <LoggedOutProfile /> }
         </div>
     );
 }
