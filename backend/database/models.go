@@ -125,3 +125,13 @@ type ActivationCode struct {
 	UserId  int       `json:"user_id"`
 	Expires time.Time `json:"expires"`
 }
+
+type League struct {
+	Id           int     `json:"id"`
+	OwnerId      int     `json:"owner_id"`
+	Participants []int   `json:"participants"`
+	Name         string  `json:"name"`
+	PtsRatio     float32 `json:"pts_ratio"`
+	RebRatio     float32 `json:"reb_ratio"`
+	AstRatio     float32 `json:"ast_ratio"`
+}

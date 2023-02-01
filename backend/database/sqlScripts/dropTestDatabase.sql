@@ -1,5 +1,8 @@
 USE test_nba_fantasy_league;
 
+
+DROP TABLE user_to_league;
+DROP TABLE league;
 DROP TABLE Session;
 DROP TABLE Activation_code;
 DROP TABLE User;

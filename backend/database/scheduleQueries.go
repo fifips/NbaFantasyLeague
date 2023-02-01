@@ -26,8 +26,8 @@ func GetSchedule() ([]Match, error) {
 }
 
 func UpdateMatch(game Match) error {
-	result, err := db.Exec("UPDATE Schedule "+
-		"SET game_date = ?, home_team_id = ?, home_score = ?, away_team_id = ?, away_score = ? WHERE game_id = ?",
+	result, err := db.Exec(`UPDATE Schedule SET
+					game_date = ?, home_team_id = ?, home_score = ?, away_team_id = ?, away_score = ? WHERE game_id = ?`,
 		game.GameDate.Format("2006-01-02 15:04:05"), game.HomeTeamId, game.HomeScore, game.AwayTeamId, game.AwayScore, game.GameId)
 	if err != nil {
 		return err

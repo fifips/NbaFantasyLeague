@@ -17,6 +17,7 @@ func RegisterRoutes(router *gin.Engine) {
 	userRoutes.GET("/logged_in", isLoggedIn)
 	userRoutes.GET("/logout", logout)
 
+	userRoutes.GET("/leagues", getAllLeagueIds)
 	userRoutes.Use(IsActiveUser)
 
 }

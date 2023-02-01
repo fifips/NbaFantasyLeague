@@ -29,8 +29,9 @@ CREATE TABLE Player (
 );
 
 CREATE TABLE player_to_team (
-                                player_id CHAR(36),
+                                player_id CHAR(36) UNIQUE,
                                 team_id CHAR(36),
+
                                 FOREIGN KEY (player_id) REFERENCES Player(id) ON DELETE CASCADE,
                                 FOREIGN KEY (team_id) REFERENCES Team(id) ON DELETE CASCADE
 );
@@ -76,4 +77,24 @@ CREATE TABLE Activation_Code (
 
                                  FOREIGN KEY (user_id) REFERENCES User(id) ON DELETE CASCADE,
                                  PRIMARY KEY (code)
+);
+
+CREATE TABLE League (
+                        id INT AUTO_INCREMENT,
+                        owner_id INT NOT NULL,
+                        name VARCHAR(30) NOT NULL,
+                        pts_ratio FLOAT DEFAULT 1.0,
+                        reb_ratio FLOAT DEFAULT 1.0,
+                        ast_ratio FLOAT DEFAULT 1.0,
+
+                        FOREIGN KEY (owner_id) REFERENCES User(id) ON DELETE CASCADE,
+                        PRIMARY KEY (id)
+);
+
+CREATE TABLE user_to_league (
+                                user_id INT NOT NULL,
+                                league_id INT NOT NULL,
+
+                                FOREIGN KEY (user_id) REFERENCES User(id) ON DELETE CASCADE,
+                                FOREIGN KEY (league_id) REFERENCES League(id) ON DELETE CASCADE
 );

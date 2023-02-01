@@ -35,3 +35,17 @@ INSERT INTO Activation_Code (code, user_id, expires)
 VALUES ('1ba7b810-9dad-11d1-80b4-00c04fd430c8', '1', '2022-01-01 12:00:00'),
        ('2ba7b810-9dad-11d1-80b4-00c04fd430c8', '2', '2022-01-02 12:00:00'),
        ('3ba7b810-9dad-11d1-80b4-00c04fd430c8', '3', '2022-01-03 12:00:00');
+
+INSERT INTO league (id, owner_id, name, pts_ratio, reb_ratio, ast_ratio)
+VALUES ('1', '1', 'first_league', 1.1, 1.2, 1.3),
+       ('2', '2', 'second_league', 1.1, 1.2, 1.3),
+       ('3', '3', 'third_league', 1.1, 1.2, 1.3),
+       ('4', '4', 'fourth_league', 1.1, 1.2, 1.3);
+
+INSERT INTO user_to_league (user_id, league_id)
+VALUES ('1', '1'),
+       ('2', '2'),
+       ('3', '3'),
+       ('4', '4'),
+       ('3', '2'),
+       ('2', '1');
