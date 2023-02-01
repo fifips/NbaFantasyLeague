@@ -7,6 +7,8 @@ import {Notification, Notifications} from "./components/common/notification";
 import {useContext} from "react";
 import {NotificationContext} from "./contexts/notifContext";
 import {Login} from "./components/login";
+import {NavigationMenu} from "./components/nagivationMenu/navigationMenu";
+import {Leagues} from "./components/leagues";
 
 const App = () => {
     return (
@@ -14,10 +16,12 @@ const App = () => {
         <Notifications/>
         <BrowserRouter>
             <Header />
+            <NavigationMenu />
             <Routes>
                 <Route path="/login" element={<Login/>}/>
                 <Route path="/register" element={<Register/>}/>
                 <Route path="/user/activate" element={<Activate/>}/>
+                <Route path="/leagues" element={<Leagues/>}/>
             </Routes>
         </BrowserRouter>
       </div>

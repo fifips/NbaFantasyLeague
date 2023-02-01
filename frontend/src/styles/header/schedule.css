@@ -3,8 +3,11 @@ div.schedule {
     flex-direction: row;
     flex-shrink: 0;
     height: 84px;
+    max-width: 1720px;
 
-    /* Text */
+    overflow-x: auto;
+    overflow-y: hidden;
+
     color: #fdf8f8;
     -webkit-text-stroke-width: .5px;
     -webkit-text-stroke-color: black;
@@ -13,13 +16,16 @@ div.schedule {
     border-left-width: 2px;
 }
 
+div.schedule::-webkit-scrollbar {
+    display: none;
+}
+
 div.empty-schedule {
     display: flex;
     width: 100%;
     justify-content: center;
     align-items: center;
 
-    /* Text */
     font-size: 40px;
     -webkit-text-stroke-width: .8px;
     color: rgba(253, 248, 248, 0.65);
@@ -36,6 +42,7 @@ div.schedule-item {
     border-right-width: 1px;
     border-right-style: solid;
     width: 140px;
+    min-width: 140px;
 }
 
 div.matchup {
@@ -68,6 +75,9 @@ div.wins-loses,
 div.score {
     font-size: 17px;
     font-weight: 600;
+}
+div.wins-loses {
+    padding-right: 1px;
 }
 
 div.match-date {

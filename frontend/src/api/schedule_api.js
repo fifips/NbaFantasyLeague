@@ -1,8 +1,8 @@
 import {Match} from "./models";
 
 export const getSchedule = async () => {
-    const dateWeekBefore = new Date();
-    dateWeekBefore.setDate(dateWeekBefore.getDate() - 7);
+    const dateDayBefore = new Date();
+    dateDayBefore.setDate(dateDayBefore.getDate() - 1);
     const dateWeekAfter = new Date();
     dateWeekAfter.setDate(dateWeekAfter.getDate() + 7);
 
@@ -11,7 +11,7 @@ export const getSchedule = async () => {
         const data = await res.json()
         return data["message"]
             .map(match => new Match(match))
-            .filter(match =>  dateWeekBefore <= match.date && match.date <= dateWeekAfter)
+            .filter(match =>  dateDayBefore <= match.date && match.date <= dateWeekAfter)
             .sort((matchA,matchB) => matchA.date - matchB.date)
     }
     catch (err) {

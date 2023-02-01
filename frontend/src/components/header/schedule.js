@@ -21,7 +21,7 @@ const MatchDateAndTime = ({date, time}) => {
 const TeamWinsLoses = ({teamWins, teamLoses}) => {
     return (
       <div className="wins-loses">
-          {teamWins} - {teamLoses}
+          {teamWins}-{teamLoses}
       </div>
     );
 }
