@@ -135,6 +135,7 @@ func getUserFromRefreshToken(token string) (*db.User, error) {
 	return user, nil
 }
 
+// Authenticate middleware authenticates the user based on the access and refresh jwt tokens stored in the cookies.
 func Authenticate(c *gin.Context) {
 	accessToken, err := c.Cookie("access_token")
 	if err != nil && err == (http.ErrNoCookie) {

@@ -6,6 +6,7 @@ import (
 	"net/http"
 )
 
+// getSchedule retrieves a schedule from a database and returns it in JSON format.
 func getSchedule(c *gin.Context) {
 	schedule, err := db.GetSchedule()
 	if err != nil {

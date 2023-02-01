@@ -9,7 +9,7 @@ func GetTeamById(id string) (Team, error) {
 
 func CreateOrUpdateTeam(team Team) error {
 	_, err := db.Exec(`INSERT INTO Team (id, full_name, acronym, wins, losses) VALUES (?, ?, ?, ?, ?)
-                                	ON DUPLICATE KEY UPDATE full_name = VALUES(full_name), acronym = VALUES(acronym),
+                                	ON DUPLICATE KEY UPDATE full_name = VALUES(full_name),
                                 	wins = VALUES(wins), losses = VALUES(losses)`,
 		team.Id, team.FullName, team.Acronym, team.Wins, team.Losses)
 	return err

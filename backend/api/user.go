@@ -111,6 +111,8 @@ func login(c *gin.Context) {
 	c.Status(http.StatusOK)
 }
 
+// logout logs out the current user.
+// current user is the one added by Authenticate middleware
 func logout(c *gin.Context) {
 	user, err := getUserFromContext(c)
 	if err != nil {
@@ -124,6 +126,8 @@ func logout(c *gin.Context) {
 	c.Status(http.StatusOK)
 }
 
+// isLoggedIn checks if the current user is logged in.
+// current user is the one added by Authenticate middleware
 func isLoggedIn(c *gin.Context) {
 	_, ok := c.Get("user")
 	if ok == false {
