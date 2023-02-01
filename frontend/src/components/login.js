@@ -39,7 +39,7 @@ export const Login = () => {
                 <input type="email" value={email} placeholder="Email" onChange={e => setEmail(e.target.value)} />
                 <input type="password" value={password} placeholder="Password" onChange={e => setPassword(e.target.value)} />
                 <label className="remember-me">
-                    <input className="remember-me" type="checkbox" checked={rememberMe} onClick={() => setRememberMe(!rememberMe)}/>
+                    <input className="remember-me" type="checkbox" onChange={() => setRememberMe(!rememberMe)}/>
                     Remember me
                 </label>
                 <BouncingButton className="login" type="submit">Login</BouncingButton>
